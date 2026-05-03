@@ -14,7 +14,7 @@
 
 ## Slides à produire (PDF)
 
-1. **Page de garde** : Titre, nom, date, ESSAI, Pr. Bel Mufti
+1. **Page de garde** : Titre, nom, date, ESSAI, Mme Tej
 2. **Question scientifique** : 1 phrase + carte de la zone
 3. **Données CDS** : capture du portail Copernicus + tableau des variables
 4. **Pipeline d'acquisition** : diagramme `cdsapi → ZIP → NetCDF → xarray`

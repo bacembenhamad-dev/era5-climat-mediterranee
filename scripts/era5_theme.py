@@ -166,7 +166,7 @@ INDEX_STRING = '''<!DOCTYPE html>
     <div>
       <div class="footer-group-label">Projet</div>
       <div class="footer-text" style="font-weight:600;">ESSAI 2026</div>
-      <div class="footer-text">Bacem Ben Ahmad — Pr. Ghazi Bel Muftī</div>
+      <div class="footer-text">Bacem Ben Ahmad — Mme Tej</div>
     </div>
   </footer>
 </div>

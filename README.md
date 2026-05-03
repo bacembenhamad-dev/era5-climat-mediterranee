@@ -1,6 +1,6 @@
 # Projet S2 — Analyse climatique Méditerranée & Tunisie (1980–2024)
 
-**Cours :** ANALYSE DES DONNÉES — ESSAI (Pr. Ghazi Bel Mufti)
+**Cours :** ANALYSE DES DONNÉES — ESSAI (Mme Tej)
 **Étudiant :** Bacem Ben Ahmad
 **Période :** 6 semaines (S2)
 
