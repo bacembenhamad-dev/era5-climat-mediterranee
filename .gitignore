@@ -1,0 +1,36 @@
+# Données brutes (lourdes, regenerables via scripts CDS)
+data/raw/*.nc
+data/raw/*.grib
+data/raw/*.zip
+data/raw/*.png
+data/raw/era5_full/
+data/raw/era5_test_jan2024/
+data/processed/*.parquet
+data/processed/*.csv
+data/processed/*.png
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.Rhistory
+.claude/
+
+# README compile en HTML (regenerable)
+README.html
+
+# Secrets — JAMAIS committer la clé CDS
+.cdsapirc
+*.env
+
+# OS
+.DS_Store
+Thumbs.db

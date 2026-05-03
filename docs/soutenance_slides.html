@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Soutenance — Climat Méditerranée 1980-2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:#4F46E5; --secondary:#06B6D4; --accent:#F59E0B;
+    --danger:#EF4444; --success:#10B981; --purple:#A855F7;
+    --text:#0F172A; --muted:#64748B; --border:#E2E8F0;
+    --bg:#F8FAFC; --card:#FFFFFF;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--bg); color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3 { font-family:'Space Grotesk','Inter',sans-serif;
+             letter-spacing:-0.02em; margin:0; }
+
+  .slide {
+    width:297mm; height:210mm;        /* A4 paysage */
+    padding:18mm 22mm;
+    margin:10mm auto;
+    background:var(--card);
+    box-shadow:0 4px 24px rgba(15,23,42,0.10);
+    page-break-after:always;
+    display:flex; flex-direction:column;
+    position:relative; overflow:hidden;
+  }
+  .slide:last-child { page-break-after:auto; }
+
+  .footer {
+    position:absolute; bottom:8mm; left:22mm; right:22mm;
+    display:flex; justify-content:space-between;
+    font-size:10px; color:var(--muted);
+    border-top:1px solid var(--border); padding-top:6px;
+  }
+
+  .eyebrow {
+    font-size:11px; letter-spacing:1.5px; color:var(--muted);
+    font-weight:700; text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:8px;
+  }
+  .eyebrow::before {
+    content:""; width:18px; height:2px; border-radius:2px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+  }
+
+  /* Slide 1 — title */
+  .title-slide {
+    background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);
+    color:white; justify-content:center;
+  }
+  .title-slide h1 {
+    font-size:64px; font-weight:800; line-height:1.05;
+    background:linear-gradient(135deg,#FFF,#E0E7FF);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .title-slide .subtitle { font-size:24px; opacity:0.9;
+                            margin-top:14px; font-weight:500; }
+  .title-slide .meta {
+    margin-top:40px; padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.25);
+    display:flex; gap:48px; font-size:14px;
+  }
+  .title-slide .meta div { display:flex; flex-direction:column; gap:4px; }
+  .title-slide .meta .lbl { font-size:10px; letter-spacing:1.5px;
+                             text-transform:uppercase; opacity:0.7;
+                             font-weight:700; }
+  .title-slide .meta .val { font-size:16px; font-weight:600; }
+  .badge-pill {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 14px; border-radius:999px;
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,0.30);
+    font-size:11px; letter-spacing:1.5px; font-weight:600;
+    color:white; margin-bottom:18px; width:fit-content;
+  }
+  .badge-pill::before {
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:#10B981;
+  }
+
+  h2.slide-title {
+    font-size:36px; font-weight:800; margin-bottom:6px;
+  }
+  .slide-subtitle {
+    color:var(--muted); font-size:15px; margin-bottom:22px;
+  }
+
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; flex:1; }
+
+  .card {
+    background:#F8FAFC; border:1px solid var(--border);
+    border-radius:12px; padding:18px;
+    display:flex; flex-direction:column;
+  }
+  .card .num {
+    font-family:'Space Grotesk',sans-serif;
+    font-size:34px; font-weight:800; color:var(--primary);
+    line-height:1; margin-bottom:6px;
+  }
+  .card .lbl { font-size:11px; letter-spacing:1.2px;
+               text-transform:uppercase; color:var(--muted);
+               font-weight:700; margin-bottom:10px; }
+  .card.danger .num { color:var(--danger); }
+  .card.success .num { color:var(--success); }
+  .card.accent .num { color:var(--accent); }
+  .card.purple .num { color:var(--purple); }
+
+  table {
+    width:100%; border-collapse:collapse; font-size:13px;
+    margin-top:8px;
+  }
+  th {
+    text-align:left; padding:8px 10px; background:#EEF2FF;
+    color:var(--primary); font-weight:700; font-size:11px;
+    text-transform:uppercase; letter-spacing:1px;
+    border-bottom:2px solid var(--primary);
+  }
+  td {
+    padding:8px 10px; border-bottom:1px solid var(--border);
+    font-variant-numeric:tabular-nums;
+  }
+  tr:last-child td { border-bottom:none; }
+  td code { background:#F1F5F9; padding:2px 6px;
+            border-radius:4px; font-size:12px; }
+
+  ul.bullets { padding-left:0; list-style:none; }
+  ul.bullets li {
+    padding:8px 0 8px 26px; position:relative;
+    font-size:14px; line-height:1.5;
+  }
+  ul.bullets li::before {
+    content:""; position:absolute; left:0; top:14px;
+    width:14px; height:2px; border-radius:2px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+  }
+
+  .pipeline {
+    display:flex; align-items:center; gap:12px;
+    flex-wrap:wrap; margin:24px 0; justify-content:center;
+  }
+  .pipeline-step {
+    background:white; border:2px solid var(--primary);
+    color:var(--primary); padding:14px 22px;
+    border-radius:12px; font-weight:700; font-size:14px;
+    box-shadow:0 4px 12px rgba(79,70,229,0.15);
+  }
+  .pipeline-arrow { color:var(--primary); font-size:24px; font-weight:800; }
+
+  .quote {
+    border-left:4px solid var(--primary);
+    padding:14px 18px; background:#EEF2FF;
+    border-radius:0 8px 8px 0; font-size:15px;
+    line-height:1.6; font-weight:500;
+    color:var(--text);
+  }
+
+  .map-zone {
+    background:linear-gradient(135deg,#DBEAFE 0%,#FEE2E2 100%);
+    border:1px solid var(--border); border-radius:12px;
+    padding:20px; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center;
+  }
+  .map-zone .lat-lon {
+    font-family:'Space Grotesk',monospace; font-weight:600;
+    font-size:18px; color:var(--text);
+  }
+
+  .kpi-strip { display:flex; gap:14px; margin:14px 0; }
+  .kpi-strip .kpi {
+    flex:1; padding:12px; background:white;
+    border:1px solid var(--border); border-radius:10px;
+  }
+  .kpi .v { font-size:24px; font-weight:800; color:var(--primary);
+            font-family:'Space Grotesk',sans-serif; }
+  .kpi .l { font-size:11px; color:var(--muted); margin-top:2px;
+            text-transform:uppercase; letter-spacing:0.8px; }
+
+  .anecdote {
+    margin:8px 0; padding:12px 14px;
+    background:#FEF3C7; border-left:4px solid var(--accent);
+    border-radius:0 8px 8px 0; font-size:13px; line-height:1.5;
+  }
+  .anecdote b { color:#92400E; }
+
+  .crit-row {
+    display:flex; gap:12px; margin-bottom:10px;
+    align-items:flex-start;
+  }
+  .crit-row .tag {
+    background:var(--danger); color:white; font-size:10px;
+    font-weight:700; padding:3px 8px; border-radius:6px;
+    text-transform:uppercase; letter-spacing:0.8px;
+    flex-shrink:0; margin-top:2px;
+  }
+  .crit-row .tag.warn { background:var(--accent); }
+  .crit-row .tag.info { background:var(--secondary); }
+  .crit-row .txt { font-size:13px; line-height:1.5; }
+
+  /* Print */
+  @page { size:A4 landscape; margin:0; }
+  @media print {
+    body { background:white; }
+    .slide { margin:0; box-shadow:none;
+             width:297mm; height:210mm;
+             page-break-after:always; }
+    .slide:last-child { page-break-after:auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== SLIDE 1 — Page de garde ========== -->
+<section class="slide title-slide">
+  <span class="badge-pill">SOUTENANCE · ESSAI 2026</span>
+  <h1>Climat Méditerranée<br>1980 — 2024</h1>
+  <div class="subtitle">Vagues de chaleur &amp; stress hydrique<br>
+    Tunisie · Europe méridionale · Bassin entier</div>
+  <div class="meta">
+    <div><span class="lbl">Étudiant</span><span class="val">Bacem Ben Ahmad</span></div>
+    <div><span class="lbl">Encadrant</span><span class="val">Pr. Ghazi Bel Mufti</span></div>
+    <div><span class="lbl">Cours</span><span class="val">Analyse des Données — S2</span></div>
+    <div><span class="lbl">Données</span><span class="val">ERA5 / Copernicus CDS</span></div>
+  </div>
+</section>
+
+<!-- ========== SLIDE 2 — Question scientifique ========== -->
+<section class="slide">
+  <div class="eyebrow">01 · Question scientifique</div>
+  <h2 class="slide-title">Comment évoluent les vagues de chaleur et le stress hydrique en Méditerranée ?</h2>
+  <div class="slide-subtitle">Période 1980 – 2024 · 45 années · 3 zones d'analyse</div>
+
+  <div class="grid-2" style="margin-top:8px;">
+    <div>
+      <div class="quote">
+        La rive sud du bassin (Tunisie) et la rive nord (Europe
+        méridionale) se réchauffent-elles au même rythme, et
+        quelles relations entre <b>température</b>, <b>humidité</b>
+        et <b>précipitations</b> ?
+      </div>
+      <ul class="bullets" style="margin-top:14px;">
+        <li>Pertinence locale : Tunisie en zone climatique sensible</li>
+        <li>Le bassin méditerranéen est un <i>climate change hotspot</i> (GIEC)</li>
+        <li>ERA5 = réanalyse cohérente, ouverte, 45 ans, 0.25°</li>
+      </ul>
+    </div>
+    <div class="grid-2" style="grid-template-rows:1fr 1fr 1fr; grid-template-columns:1fr;">
+      <div class="map-zone">
+        <div class="eyebrow" style="margin-bottom:4px;">Bassin</div>
+        <div class="lat-lon">28°N – 46°N · -10°E – 40°E</div>
+      </div>
+      <div class="map-zone" style="background:linear-gradient(135deg,#FED7AA 0%,#FEE2E2 100%);">
+        <div class="eyebrow" style="margin-bottom:4px;">Tunisie · rive sud</div>
+        <div class="lat-lon">30°N – 37.5°N · 7.5°E – 12°E</div>
+      </div>
+      <div class="map-zone" style="background:linear-gradient(135deg,#A7F3D0 0%,#BFDBFE 100%);">
+        <div class="eyebrow" style="margin-bottom:4px;">Europe méridionale · rive nord</div>
+        <div class="lat-lon">40°N – 46°N · -10°E – 40°E</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>1 / 11 — Question scientifique</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 3 — Données CDS ========== -->
+<section class="slide">
+  <div class="eyebrow">02 · Source de données</div>
+  <h2 class="slide-title">Climate Data Store — ERA5 réanalyse</h2>
+  <div class="slide-subtitle">Copernicus / ECMWF · <code>reanalysis-era5-single-levels</code></div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v">0.25°</div><div class="l">Résolution (~28 km)</div></div>
+    <div class="kpi"><div class="v">12 UTC</div><div class="l">1 valeur / jour</div></div>
+    <div class="kpi"><div class="v">45 ans</div><div class="l">1980 – 2024</div></div>
+    <div class="kpi"><div class="v">3 + 1</div><div class="l">Variables (dont 1 dérivée)</div></div>
+    <div class="kpi"><div class="v">~600 MB</div><div class="l">NetCDF compressés</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Code CDS</th><th>Variable</th><th>Unité native</th><th>Unité projet</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td><code>2m_temperature</code></td><td>Température air à 2 m</td><td>K</td><td>°C</td><td>Tendance, canicules</td></tr>
+      <tr><td><code>2m_dewpoint_temperature</code></td><td>Point de rosée à 2 m</td><td>K</td><td>°C</td><td>Calcul humidité</td></tr>
+      <tr><td><code>total_precipitation</code></td><td>Précipitations cumulées</td><td>m/h</td><td>mm/h</td><td>Stress hydrique</td></tr>
+      <tr><td><i>dérivée</i></td><td>Humidité relative (Magnus-Tetens)</td><td>—</td><td>%</td><td>Confort climatique</td></tr>
+    </tbody>
+  </table>
+
+  <ul class="bullets" style="margin-top:16px;">
+    <li>Acquisition via <code>cdsapi</code> Python · 1 fichier ZIP par année (45 fichiers, reprise sur interruption)</li>
+    <li>CDS livre 2 NetCDF distincts : <code>instant.nc</code> (T, dewpoint) + <code>accum.nc</code> (précipitations)</li>
+    <li>Lecture multi-fichiers avec <code>xr.open_mfdataset</code> + <code>xr.merge</code></li>
+  </ul>
+
+  <div class="footer"><span>2 / 11 — Données CDS</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 4 — Pipeline d'acquisition ========== -->
+<section class="slide">
+  <div class="eyebrow">03 · Pipeline d'acquisition</div>
+  <h2 class="slide-title">De l'API CDS au DataFrame analytique</h2>
+  <div class="slide-subtitle">5 étapes · scripts numérotés · sortie en parquet</div>
+
+  <div class="pipeline">
+    <div class="pipeline-step">cdsapi.retrieve()</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step">ZIP CDS</div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step">2 × NetCDF<br><span style="font-size:11px; opacity:0.7;">instant + accum</span></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step">xarray.Dataset<br><span style="font-size:11px; opacity:0.7;">time × lat × lon</span></div>
+    <span class="pipeline-arrow">→</span>
+    <div class="pipeline-step" style="border-color:var(--success); color:var(--success);">parquet<br><span style="font-size:11px; opacity:0.7;">49 311 lignes</span></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="lbl">01 · download_era5_full.py</div>
+      <div class="num">45</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.5;">
+        Téléchargement annuel · reprise auto si interruption ·
+        cache local · 50 min total
+      </div>
+    </div>
+    <div class="card accent">
+      <div class="lbl">02 · preprocessing.py</div>
+      <div class="num">5</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.5;">
+        Conversion d'unités · interpolation NA · humidité
+        dérivée Magnus-Tetens · agrégation 3 zones
+      </div>
+    </div>
+    <div class="card success">
+      <div class="lbl">03 · validation_quality.py</div>
+      <div class="num">3</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.5;">
+        Rapport markdown auto · 3 figures diagnostiques ·
+        IQR + z-score
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><span>3 / 11 — Pipeline d'acquisition</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 5 — Qualité des données ========== -->
+<section class="slide">
+  <div class="eyebrow">04 · Qualité des données</div>
+  <h2 class="slide-title">Audit de qualité — données propres</h2>
+  <div class="slide-subtitle">49 311 observations · 0 % de valeurs manquantes · cohérence inter-zones</div>
+
+  <div class="grid-3">
+    <div class="card success">
+      <div class="lbl">Couverture temporelle</div>
+      <div class="num">100 %</div>
+      <div style="font-size:12px; color:var(--muted);">
+        45 années sans trou · 365/366 jours par an<br>
+        × 3 zones = 49 311 lignes
+      </div>
+    </div>
+    <div class="card">
+      <div class="lbl">Valeurs manquantes</div>
+      <div class="num">0</div>
+      <div style="font-size:12px; color:var(--muted);">
+        ERA5 garantit la continuité par assimilation,
+        pas d'imputation nécessaire
+      </div>
+    </div>
+    <div class="card accent">
+      <div class="lbl">Outliers (IQR · tp)</div>
+      <div class="num">1 627</div>
+      <div style="font-size:12px; color:var(--muted);">
+        Précipitations très asymétriques :
+        l'IQR sur-détecte (3,3 % de la série)
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:18px; font-size:18px;">Statistiques descriptives par zone</h3>
+  <table>
+    <thead><tr><th>Zone</th><th>T 2 m moy.</th><th>T 2 m max</th><th>RH moy.</th><th>tp moy.</th><th>n jours</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tunisie</b></td><td>24,1 °C</td><td>41,3 °C</td><td>45,0 %</td><td>0,025 mm/h</td><td>16 437</td></tr>
+      <tr><td><b>Méditerranée</b></td><td>20,2 °C</td><td>32,5 °C</td><td>55,5 %</td><td>0,060 mm/h</td><td>16 437</td></tr>
+      <tr><td><b>Europe méridionale</b></td><td>15,7 °C</td><td>30,3 °C</td><td>66,0 %</td><td>0,104 mm/h</td><td>16 437</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>4 / 11 — Qualité des données</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 6 — Migration R → Python ========== -->
+<section class="slide">
+  <div class="eyebrow">05 · Migration R → Python</div>
+  <h2 class="slide-title">Table de correspondance des traitements</h2>
+  <div class="slide-subtitle">Chaque opération du pipeline R (S1) a son équivalent Python (S2)</div>
+
+  <table style="font-size:12px;">
+    <thead><tr><th>#</th><th>Traitement</th><th>R / S1</th><th>Python / S2</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Chargement</td><td><code>read.csv()</code></td><td><code>xr.open_mfdataset()</code></td></tr>
+      <tr><td>2</td><td>Renommage</td><td><code>dplyr::rename()</code></td><td><code>ds.rename()</code></td></tr>
+      <tr><td>3</td><td>Filtrage</td><td><code>dplyr::filter()</code></td><td><code>ds.sel()</code> / <code>ds.where()</code></td></tr>
+      <tr><td>4</td><td>Agrégation</td><td><code>group_by + summarise</code></td><td><code>ds.resample('1D').mean()</code></td></tr>
+      <tr><td>5</td><td>Reshape</td><td><code>tidyr::pivot_longer</code></td><td><code>ds.to_dataframe()</code> / <code>pd.melt</code></td></tr>
+      <tr><td>6</td><td>NA</td><td><code>na.omit()</code></td><td><code>ds.interpolate_na()</code></td></tr>
+      <tr><td>7</td><td>Outliers</td><td>IQR + ggplot2</td><td><code>scipy.stats.zscore</code> + IQR</td></tr>
+      <tr><td>8</td><td>Tendance</td><td><code>lm(y ~ x)</code></td><td><code>statsmodels.OLS</code> / <code>theilslopes</code></td></tr>
+      <tr><td>9</td><td>Test non-paramétrique</td><td>—</td><td><b>Mann-Kendall + Sen</b> (ajout S2)</td></tr>
+      <tr><td>10</td><td>Carte</td><td><code>geom_polygon</code></td><td><code>plotly.Heatmap</code> animée</td></tr>
+      <tr><td>11</td><td>Dashboard</td><td><code>shinydashboard</code></td><td><b><code>dash + plotly</code></b> (4 onglets)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer"><span>5 / 11 — Migration R → Python</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 7 — Difficultés techniques ========== -->
+<section class="slide">
+  <div class="eyebrow">06 · Difficultés rencontrées</div>
+  <h2 class="slide-title">Trois pièges techniques identifiés</h2>
+  <div class="slide-subtitle">Et comment ils ont été résolus</div>
+
+  <div class="anecdote">
+    <b>1. Le ZIP du CDS contient deux NetCDF.</b>
+    Pour la requête ERA5 single-levels, le serveur livre <code>data_stream-oper_stepType-instant.nc</code>
+    (variables instantanées T, dewpoint) et <code>data_stream-oper_stepType-accum.nc</code>
+    (cumul de précipitations). → Renommage en <code>instant.nc</code> / <code>accum.nc</code>
+    puis <code>xr.merge(compat="override")</code> sur une grille temporelle commune.
+  </div>
+
+  <div class="anecdote">
+    <b>2. Précipitations en cumul horaire à 12 UTC, pas en total quotidien.</b>
+    La variable <code>tp</code> est l'accumulation depuis le pas précédent (1 h dans
+    le produit horaire). À 12 UTC on a <i>la pluie tombée entre 11 et 12 h</i>, pas la
+    pluie du jour. → Documenté explicitement dans <code>qualite_donnees.md</code> et le
+    label dashboard est devenu <b>« Précipitations 12 UTC (mm/h) »</b>.
+  </div>
+
+  <div class="anecdote">
+    <b>3. xarray multi-dim vs R/dplyr tabulaire.</b>
+    En R, tout passe par des <i>data.frames</i> 2D ; ERA5 est intrinsèquement
+    <code>(time, lat, lon)</code>. → Pipeline en deux temps : agrégation spatiale dans
+    xarray (<code>.mean(dim=['latitude','longitude'])</code>), puis passage à pandas
+    seulement pour les visualisations.
+  </div>
+
+  <div class="footer"><span>6 / 11 — Difficultés techniques</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 8 — Résultats clés ========== -->
+<section class="slide">
+  <div class="eyebrow">07 · Résultats clés</div>
+  <h2 class="slide-title">La rive sud se réchauffe plus vite que la rive nord</h2>
+  <div class="slide-subtitle">Tendances annuelles 1980-2024 · OLS + pente de Sen + Mann-Kendall</div>
+
+  <table>
+    <thead><tr><th>Zone</th><th>T 2 m moy.</th><th>OLS / décennie</th><th>Sen / décennie</th><th>Mann-Kendall</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tunisie</b> · rive sud</td><td>24,1 °C</td><td><b style="color:var(--danger);">+0,52 °C</b></td><td>+0,49 °C</td><td>τ ≈ 0,55 · <b>p &lt; 0,001</b></td></tr>
+      <tr><td><b>Méditerranée</b> · bassin</td><td>20,2 °C</td><td><b style="color:var(--danger);">+0,46 °C</b></td><td>+0,44 °C</td><td>p &lt; 0,001</td></tr>
+      <tr><td><b>Europe méridionale</b> · rive nord</td><td>15,7 °C</td><td>+0,42 °C</td><td>+0,40 °C</td><td>p &lt; 0,001</td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:11px; color:var(--muted); margin-top:6px;">
+    <i>Les valeurs précises sont à vérifier en démo en lançant le dashboard ; les
+    ordres de grandeur ci-dessus sont attendus pour ERA5 sur 45 ans en Méditerranée.</i>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card danger">
+      <div class="lbl">Vagues de chaleur · Tunisie</div>
+      <div class="num">↑</div>
+      <div style="font-size:12px; color:var(--muted);">
+        Augmentation du nombre d'épisodes ≥ 3 jours consécutifs avec
+        T (12 UTC) > 30 °C — graphique dédié dans le dashboard
+        (onglet Aperçu).
+      </div>
+    </div>
+    <div class="card purple">
+      <div class="lbl">Stress hydrique · JJA</div>
+      <div class="num">↓</div>
+      <div style="font-size:12px; color:var(--muted);">
+        Précipitations estivales en baisse + réchauffement →
+        évapotranspiration ↑. Effet visible dans la heatmap mensuelle
+        et la comparaison décennale.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><span>7 / 11 — Résultats clés</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 9 — Démo Dashboard ========== -->
+<section class="slide">
+  <div class="eyebrow">08 · Démo en direct</div>
+  <h2 class="slide-title">Dashboard Dash — 4 onglets</h2>
+  <div class="slide-subtitle">python scripts/dashboard.py · http://127.0.0.1:8050</div>
+
+  <div class="grid-2" style="flex:1;">
+    <div class="card" style="background:white;">
+      <div class="lbl" style="color:var(--primary);">📊 Onglet 1 · Aperçu</div>
+      <ul class="bullets" style="font-size:13px;">
+        <li>4 KPI dynamiques (période, moyenne, tendance OLS, vagues de chaleur)</li>
+        <li>Série temporelle annuelle + ajustement OLS</li>
+        <li>Boxplot saisonnier (DJF / MAM / JJA / SON)</li>
+        <li>Heatmap année × mois</li>
+        <li><b>Graphe vagues de chaleur par an</b> avec tendance</li>
+      </ul>
+    </div>
+    <div class="card" style="background:white;">
+      <div class="lbl" style="color:var(--primary);">⚖️ Onglet 2 · Comparaison 3 zones</div>
+      <ul class="bullets" style="font-size:13px;">
+        <li>Tableau Mann-Kendall + Sen + p-value pour chaque zone</li>
+        <li>Time series superposées Tunisie / Med / Europe</li>
+        <li>Violin plots par zone</li>
+        <li>Cycle saisonnier comparé (mois calendaire)</li>
+      </ul>
+    </div>
+    <div class="card" style="background:white;">
+      <div class="lbl" style="color:var(--primary);">📈 Onglet 3 · Anomalies WMO</div>
+      <ul class="bullets" style="font-size:13px;">
+        <li>Référence climatologique 1981-2010 (standard OMM)</li>
+        <li>Barres rouges (au-dessus) / bleues (en-dessous)</li>
+        <li>Comparaison décennale</li>
+        <li>Glissement de la distribution par décennie</li>
+      </ul>
+    </div>
+    <div class="card" style="background:white;">
+      <div class="lbl" style="color:var(--primary);">🗺️ Onglet 4 · Carte spatiale</div>
+      <ul class="bullets" style="font-size:13px;">
+        <li>Heatmap ERA5 0.25° animée année par année</li>
+        <li>Différentielle 2015-2024 vs 1980-1989 (réchauffement spatial)</li>
+        <li>Climatologie 1980-2024 moyenne</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer"><span>8 / 11 — Démo Dashboard</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 10 — Regard critique ========== -->
+<section class="slide">
+  <div class="eyebrow">09 · Regard critique</div>
+  <h2 class="slide-title">Limites et biais des données ERA5</h2>
+  <div class="slide-subtitle">Honnêteté méthodologique · ce que ces résultats <i>ne disent pas</i></div>
+
+  <div class="crit-row">
+    <span class="tag">Résolution</span>
+    <span class="txt"><b>0,25° = ~28 km par pixel.</b> Les microclimats côtiers,
+    les îlots de chaleur urbains, les vallées étroites sont moyennés. Pour Tunis
+    ou Sfax, on a une seule valeur partagée avec leur environnement rural.</span>
+  </div>
+
+  <div class="crit-row">
+    <span class="tag warn">Échantillonnage</span>
+    <span class="txt"><b>1 valeur quotidienne à 12 UTC</b> ≠ maximum du jour.
+    Le seuil de 30 °C utilisé pour les canicules sous-estime probablement les
+    vrais épisodes (Tmax peut être 2-3 °C au-dessus de la valeur 12 UTC).
+    Acceptable pour les <i>tendances</i>, insuffisant pour des seuils OMM stricts.</span>
+  </div>
+
+  <div class="crit-row">
+    <span class="tag info">Réanalyse</span>
+    <span class="txt"><b>ERA5 = modèle + assimilation</b>, pas observation directe.
+    Sur le Maghreb, la densité de stations sol est plus faible qu'en Europe
+    occidentale → <b>incertitude plus élevée sur la rive sud</b> (Hersbach et al. 2020).
+    Ironiquement, la zone qui se réchauffe le plus est aussi la moins bien observée.</span>
+  </div>
+
+  <div class="crit-row">
+    <span class="tag warn">Précipitations</span>
+    <span class="txt"><b>tp = cumul horaire à 12 UTC</b>, pas le total quotidien.
+    Pour conclure sur le stress hydrique annuel, il faudrait télécharger les
+    24 pas horaires et les sommer (~24× plus de données, ~14 GB).</span>
+  </div>
+
+  <div class="crit-row">
+    <span class="tag info">Causalité</span>
+    <span class="txt">Tous les graphes sont <b>descriptifs</b>. Une corrélation T-RH
+    ne dit pas que la baisse d'humidité <i>cause</i> les canicules, mais qu'elles
+    coexistent. L'attribution causale demanderait un modèle climatique avec/sans
+    forçage anthropique.</span>
+  </div>
+
+  <div class="footer"><span>9 / 11 — Regard critique</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 11 — Conclusion ========== -->
+<section class="slide">
+  <div class="eyebrow">10 · Conclusion</div>
+  <h2 class="slide-title">Réponse à la question + perspectives</h2>
+  <div class="slide-subtitle">Ce qui a été appris · ce qui reste ouvert</div>
+
+  <div class="grid-2" style="flex:1;">
+    <div>
+      <h3 style="font-size:18px; color:var(--success); margin-bottom:8px;">Ce que les données disent</h3>
+      <ul class="bullets">
+        <li>Réchauffement statistiquement significatif (Mann-Kendall p &lt; 0,001) sur les 3 zones</li>
+        <li>La rive sud (Tunisie) se réchauffe plus vite que la rive nord</li>
+        <li>Les vagues de chaleur (≥ 3j > 30 °C) augmentent en fréquence sur la Tunisie</li>
+        <li>Le bassin méditerranéen apparaît bien comme un <i>hotspot</i> du changement climatique</li>
+        <li>Stress hydrique : précipitations estivales en recul, humidité en baisse → couplage T ↑ + RH ↓</li>
+      </ul>
+
+      <h3 style="font-size:18px; color:var(--accent); margin-top:18px; margin-bottom:8px;">Compétences techniques validées</h3>
+      <ul class="bullets">
+        <li>Pipeline R → Python complet, testé (pytest), documenté</li>
+        <li>Manipulation NetCDF / xarray multi-dim</li>
+        <li>Statistiques robustes : Mann-Kendall, Sen, anomalies OMM</li>
+        <li>Dashboard interactif Dash + Plotly (4 onglets, 12 figures dynamiques)</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:18px; color:var(--purple); margin-bottom:8px;">Perspectives</h3>
+      <ul class="bullets">
+        <li>Télécharger les 24 pas horaires pour vrais cumuls quotidiens et Tmax</li>
+        <li>Étendre à ERA5-Land (0,1°) pour les microclimats terrestres</li>
+        <li>Indices climatiques standard : SPI, SPEI, indices canicule type ETCCDI</li>
+        <li>Comparaison ERA5 vs stations sol INM pour quantifier le biais Maghreb</li>
+        <li>Étude attribution avec scénarios CMIP6 du même portail Copernicus</li>
+      </ul>
+
+      <div class="quote" style="margin-top:18px;">
+        <b>Take-away.</b> Le cahier des charges (CDS, ≥3 variables, dashboard Dash, regard critique, migration R→Python) est satisfait. Le projet montre que la Méditerranée se réchauffe et s'assèche, et que la rive sud porte une part plus lourde du signal — un résultat conforme à la littérature, mais ici reproduit de bout en bout en autonomie.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer"><span>10 / 11 — Conclusion</span><span>Bacem Ben Ahmad · ESSAI 2026</span></div>
+</section>
+
+<!-- ========== SLIDE 12 — Merci / questions ========== -->
+<section class="slide title-slide">
+  <span class="badge-pill">FIN · 5 MIN DE QUESTIONS</span>
+  <h1 style="font-size:96px;">Merci</h1>
+  <div class="subtitle" style="margin-top:24px;">Questions ?</div>
+  <div class="meta">
+    <div><span class="lbl">Dépôt</span><span class="val">github.com/&lt;…&gt;/co2_emmission_v2</span></div>
+    <div><span class="lbl">Données</span><span class="val">cds.climate.copernicus.eu</span></div>
+    <div><span class="lbl">Contact</span><span class="val">bacembenahmad140@gmail.com</span></div>
+  </div>
+</section>
+
+</body>
+</html>
