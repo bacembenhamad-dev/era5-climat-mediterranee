@@ -27,6 +27,13 @@ venv/
 # README compile en HTML (regenerable)
 README.html
 
+# Hors scope du portfolio (artefacts S1 OWID, notes de soutenance)
+legacy/
+docs/soutenance_plan.md
+docs/soutenance_plan.html
+docs/soutenance_slides.html
+docs/soutenance_speech.html
+
 # Secrets — JAMAIS committer la clé CDS
 .cdsapirc
 *.env

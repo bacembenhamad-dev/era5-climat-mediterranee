@@ -1,8 +1,11 @@
-# Projet S2 — Analyse climatique Méditerranée & Tunisie (1980–2024)
+# Climat Méditerranée — Tunisie & Europe (1980–2024)
 
-**Cours :** ANALYSE DES DONNÉES — ESSAI (Mme Tej)
-**Étudiant :** Bacem Ben Ahmad
-**Période :** 6 semaines (S2)
+Analyse climatique end-to-end sur données de réanalyse **ERA5 (Copernicus/ECMWF)** :
+acquisition, nettoyage, exploration statistique, dashboard interactif et modèles
+prédictifs comparés, sur 45 ans de température, humidité et précipitations dans
+le bassin méditerranéen.
+
+**Auteur :** Bacem Ben Ahmad
 
 ---
 
@@ -10,7 +13,17 @@
 
 > **Comment les vagues de chaleur et le stress hydrique ont-ils évolué entre 1980 et 2024 sur le bassin méditerranéen ? La rive sud (Tunisie) et la rive nord (Europe méridionale) se réchauffent-elles au même rythme, et quelles sont les relations entre température, humidité et précipitations ?**
 
----
+## Résultats clés
+
+| Indicateur | Tunisie | Europe méridionale | Méditerranée |
+|---|---:|---:|---:|
+| Tendance T° (Mann-Kendall, p < 0,001) | +0,45 °C/déc | +0,51 °C/déc | +0,46 °C/déc |
+| Jours d'été > 30 °C (1980-2000 → 2001-2024) | ~70 → ~90 j/an | quasi-nul → plusieurs dizaines | — |
+| Corrélation T° / humidité relative | -0,70 | -0,65 | -0,80 |
+
+- Réchauffement net et statistiquement significatif sur tout le bassin, légèrement plus rapide côté nord (effet continental), mais conséquences plus marquées côté sud (climat déjà aride).
+- Pas de tendance significative sur les précipitations à 45 ans — le stress hydrique progresse surtout via l'évapotranspiration (T° ↑, humidité ↓), pas via la baisse des pluies.
+- Module prédictif séparé (`notebooks/projet_prediction.ipynb`) : SARIMA et OLS+saisonnalité battent un baseline naïf saisonnier (RMSE 1,22 °C vs 1,63 °C) sur le test 2015-2024, et projettent un réchauffement compatible avec les scénarios CMIP6 (SSP2-4.5) jusqu'en 2030.
 
 ## Données
 
@@ -19,25 +32,26 @@
 - **Variables (3) :**
   - `2m_temperature` — température à 2 m
   - `total_precipitation` — précipitations totales
-  - `2m_dewpoint_temperature` — point de rosée (→ humidité relative dérivée)
+  - `2m_dewpoint_temperature` — point de rosée (→ humidité relative dérivée, formule de Magnus-Tetens)
 - **Zone englobante :** 28°N – 46°N / -10°E – 40°E
 - **3 sous-zones d'analyse :**
   - **Tunisie** (rive sud) : 30–37.5°N / 7.5–12°E
   - **Europe méridionale** (rive nord) : 40–46°N / -10–40°E (Espagne, sud France, Italie, Balkans, Grèce)
   - **Méditerranée** (bassin entier, référence)
-- **Résolution :** 0.25° × 0.25° (~28 km)
+- **Résolution :** 0.25° × 0.25° (~28 km), 1 valeur quotidienne à 12 UTC
 - **Format :** NetCDF, lu via `xarray`
 
-## Migration R → Python
+## Approche technique
 
-Le pipeline R du semestre 1 (CO₂ anthropique) est documenté dans
-`docs/migration_R_Python.md` et chaque traitement R est explicitement
-réimplémenté en Python (table de correspondance dans le rapport).
+- **Migration R → Python** documentée dans `docs/migration_R_Python.md` (table de correspondance dplyr→pandas, ggplot→plotly, lm→statsmodels…) — chaque traitement original est explicitement réimplémenté.
+- **Statistiques de tendance** : régression OLS, pente de Sen (robuste aux outliers) et test de Mann-Kendall (standard OMM), anomalies vs climatologie de référence WMO 1981–2010.
+- **Visualisations** : warming stripes (Ed Hawkins), analyse phénologique de la saison chaude, heatmaps de corrélation, dashboard Dash interactif (filtres temporels, carte spatiale, KPI).
+- **Prédiction** : comparaison de 4 modèles (naïf saisonnier, OLS+saisonnalité, SARIMA, Random Forest) avec validation temporelle 2015-2024 et projection 2025-2030.
 
 ## Structure du projet
 
 ```
-co2_emmission_v2/
+co2_emmission_analyse/
 ├── data/
 │   ├── raw/              # NetCDF téléchargés depuis CDS (gitignored)
 │   └── processed/        # Datasets nettoyés (parquet, gitignored)
@@ -55,21 +69,13 @@ co2_emmission_v2/
 ├── dashboard/                # Assets CSS Dash
 ├── docs/
 │   ├── qualite_donnees.md          # généré par validation_quality.py
-│   ├── migration_R_Python.md
-│   ├── soutenance_plan.md
-│   └── soutenance_slides.html      # slides imprimables (Print → PDF)
+│   └── migration_R_Python.md
 ├── tests/
 │   └── test_humidity.py            # `pytest tests/` ou run direct
-├── legacy/                   # artefacts S1 OWID — hors scope S2 (non touché)
 ├── README.md
 ├── requirements.txt
 └── .gitignore
 ```
-
-> **Note sur `legacy/`** : ce dossier conserve les artefacts du semestre 1
-> (analyse OWID des émissions CO₂ anthropiques). Il est volontairement laissé
-> dans le dépôt pour tracer l'évolution R→Python du sujet, mais il n'entre
-> pas dans la grille d'évaluation S2.
 
 ## Lancement
 
@@ -115,25 +121,6 @@ Tests inclus :
 - `test_rh_in_bounds` : RH ∈ [0, 100]
 - `test_heatwave_*` : détection des épisodes consécutifs
 
-### 6. Slides de soutenance (PDF)
-
-```bash
-# Ouvrir docs/soutenance_slides.html dans le navigateur
-# puis Fichier → Imprimer → Enregistrer en PDF (format paysage)
-```
-
-## Calendrier (6 semaines)
-
-| Semaine | Objectif | Statut |
-|---------|----------|--------|
-| 1 | Question + acquisition CDS + 1ʳᵉ lecture | ✅ |
-| 2 | Nettoyage, NA, aberrantes | ✅ |
-| 3 | Transformation, agrégation, features | ✅ |
-| 4 | Analyse exploratoire + viz statiques | ✅ |
-| 5 | Dashboard Dash (filtres + carte spatiale + KPI) | ✅ |
-| 5 bis | **Module prédictif** (SARIMA, OLS, RF) → 2030 | ✅ |
-| 6 | Soutenance | en cours |
-
 ## Notebook prédictif
 
 Le notebook `notebooks/projet_prediction.ipynb` (séparé pour ne pas alourdir
@@ -151,13 +138,8 @@ Le notebook couvre : décomposition STL, train/test split temporel, métriques
 MAE/RMSE/MAPE, intervalles de confiance, **projection 2025-2030** et
 comparaison aux scénarios CMIP6 du GIEC.
 
-## Critères d'évaluation
+## Limites des données
 
-| Critère | Pondération |
-|---------|------------:|
-| Pertinence question scientifique | 25 % |
-| Variété des variables climatiques | 20 % |
-| Migration R → Python | 20 % |
-| Tableau de bord Dash | 20 % |
-| Regard critique sur données | 10 % |
-| Présentation orale (10+5 min) | 5 % |
+- ERA5 est une **réanalyse** (observations + modèle physique), pas une observation directe — densité de stations faible au Maghreb → incertitude plus élevée que sur l'Europe occidentale (Hersbach et al., 2020).
+- Résolution 0.25° (~28 km) : microclimats côtiers/urbains lissés.
+- 1 valeur quotidienne à 12 UTC : cycle diurne perdu, acceptable pour les tendances long terme, insuffisant pour les pics instantanés.
