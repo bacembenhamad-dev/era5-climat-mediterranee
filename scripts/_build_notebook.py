@@ -289,8 +289,8 @@ print('Jours T>30°C par été — moyenne par période :')
 print(summary.to_string())"""),
 
 md("""**Interprétation.**
-- **Tunisie** : ~70 jours/an (1980–2000) → ~90 jours/an (2001–2024), avec des pics à 100+ jours sur les années récentes.
-- **Europe méridionale** : passage de quasi-nul à plusieurs dizaines de jours par an — **émergence** d'un phénomène nouveau.
+- **Tunisie** : 72,8 jours/an (1980–2000) → 80,1 jours/an (2001–2024), soit +10 %.
+- **Europe méridionale** : quasi-nul sur les deux périodes (0,0 → 0,1 jour/an) ; c'est la zone **Méditerranée** qui change d'échelle (3,3 → 20,8 jours/an).
 - **Une moyenne qui monte de 1–2 °C déplace toute la distribution** : les extrêmes chauds gagnent beaucoup plus en probabilité que ne le suggère le décalage moyen."""),
 ]
 
@@ -535,7 +535,7 @@ Les données ERA5 montrent un **réchauffement net et statistiquement significat
 
 1. **Réchauffement quasi-uniforme** — Tunisie +0,45 °C/déc, Europe méridionale +0,51 °C/déc, Méditerranée +0,46 °C/déc. Tests Mann-Kendall **très significatifs** (p < 0,001) sur les 3 zones.
 2. **L'Europe se réchauffe légèrement plus vite** que la Tunisie (effet d'amplification continentale).
-3. **Multiplication des jours chauds** en Tunisie : ~70 → ~90 jours/an, +50 % sur 45 ans.
+3. **Hausse des jours chauds** en Tunisie : 72,8 → 80,1 jours/an (+10 %) entre 1980–2000 et 2001–2024.
 4. **Anomalies vs 1981–2010** : les 10 dernières années sont systématiquement +1 à +2 °C au-dessus de la normale WMO.
 5. **Phénologie** : la fenêtre des jours > 30 °C en Tunisie **s'allonge** par les deux extrémités, début comme fin de saison.
 6. **Anti-corrélation T°/RH** robuste (-0,7) sur les 3 zones — Clausius-Clapeyron confirmée.

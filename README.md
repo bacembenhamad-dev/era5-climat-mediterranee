@@ -18,7 +18,7 @@ le bassin méditerranéen.
 | Indicateur | Tunisie | Europe méridionale | Méditerranée |
 |---|---:|---:|---:|
 | Tendance T° (Mann-Kendall, p < 0,001) | +0,45 °C/déc | +0,51 °C/déc | +0,46 °C/déc |
-| Jours d'été > 30 °C (1980-2000 → 2001-2024) | ~70 → ~90 j/an | quasi-nul → plusieurs dizaines | — |
+| Jours d'été > 30 °C (1980-2000 → 2001-2024) | 72,8 → 80,1 j/an (+10 %) | 0,0 → 0,1 j/an | 3,3 → 20,8 j/an |
 | Corrélation T° / humidité relative | -0,70 | -0,65 | -0,80 |
 
 - Réchauffement net et statistiquement significatif sur tout le bassin, légèrement plus rapide côté nord (effet continental), mais conséquences plus marquées côté sud (climat déjà aride).
@@ -143,3 +143,4 @@ comparaison aux scénarios CMIP6 du GIEC.
 - ERA5 est une **réanalyse** (observations + modèle physique), pas une observation directe — densité de stations faible au Maghreb → incertitude plus élevée que sur l'Europe occidentale (Hersbach et al., 2020).
 - Résolution 0.25° (~28 km) : microclimats côtiers/urbains lissés.
 - 1 valeur quotidienne à 12 UTC : cycle diurne perdu, acceptable pour les tendances long terme, insuffisant pour les pics instantanés.
+- Précipitations : une seule valeur horaire (12 UTC) par jour, pas un cumul journalier ; pas de masque terre-mer sur les zones — les tendances de pluie sont indicatives.
