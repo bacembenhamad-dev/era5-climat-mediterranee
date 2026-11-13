@@ -5,7 +5,7 @@ acquisition, nettoyage, exploration statistique, dashboard interactif et modèle
 prédictifs comparés, sur 45 ans de température, humidité et précipitations dans
 le bassin méditerranéen.
 
-**Auteur :** Bacem Ben Ahmad
+**Auteur :** Bacem Ben Hamad
 
 ---
 

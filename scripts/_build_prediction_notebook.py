@@ -33,7 +33,7 @@ md("""# Prédiction climatique — Tunisie 1980-2024 → 2025-2030
 ## Comparaison de 4 modèles sur la série mensuelle de T 2 m
 
 **Cours :** ANALYSE DES DONNÉES — ESSAI · Mme Tej
-**Étudiant :** Bacem Ben Ahmad
+**Étudiant :** Bacem Ben Hamad
 **Notebook complémentaire** au pipeline `projet_final.ipynb`.
 
 ---
